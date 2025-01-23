@@ -1,5 +1,7 @@
 # ASTR5160
 
-This repository is for my Astro Techniques II assignments and codes.
+This repository is for my Astro Techniques II assignments and codes -Spring 2025.
 
-I am taking this course Spring 2025 at UW.
+Code for ASTR-5160 at the Uniersity of Wyoming.
+
+
