@@ -11,7 +11,9 @@ def plot():
 
     User input:
     m - class: 'int' or 'float' - converted to float
+        Slope of the line
     b - class: 'int' or 'float' - converted to float
+        y intercept
 
     Notes:
 
@@ -24,9 +26,12 @@ def create_data():
     """ Creates all components of a line to eventually graph
 
     Returns:
-    x - class: 'np.array' - 10 random floats
-    y - class: 'np.array' - the values of x scattered by a random value
-    y_error - class: 'np.array' - array of error on y
+    x - class: 'np.array' 
+        10 random floats
+    y - class: 'np.array' 
+        The values of x scattered by a random value
+    y_error - class: 'np.array' 
+        Array of error on y
 
     """
 
@@ -41,8 +46,11 @@ def eqn(m, x, b):
     
     Parameters:
 	m - class: 'int' or 'float'
-	x - class: 'np.array'
+	    Slope of line
+    x - class: 'np.array'
+        10 floats for the x axis
 	b - class: 'int' or 'float'
+        y intercept
 
     Returns:
 	- class: 'np.array'
@@ -56,9 +64,11 @@ def scatter(y):
 
     Parameters:
     y - class: 'np.array'
+        10 floats derived from x, randomly scattered
 
     Returns:
     - class: 'np.array'
+        The values of y with artificial noise added
     
     Notes:
     Once np.random.normal has been found, add these values to the parameter y
@@ -74,11 +84,15 @@ def line_fit(x, y):
 
     Parameters:
     x - class: 'np.array' or list
+        10 random floats
     y - class: 'np.array' or 'list'
+        10 floats derived from x, randomly scattered
 
     Returns:
     - class: 'float'
+        Optimal values for slope (m) and y intercept (b) using provided data
     - class: 'float'
+        Covariance found through scipy.curve_fit
 
     Notes: 
     Ignoring the covariance array given through scipy.curve_fit
@@ -94,10 +108,9 @@ def plot_data(m, b):
     
     Parameters:
     m - class: 'int' or 'float'
+        Slope of line
     b - class: 'int' or 'float'
-
-    Returns:
-    Nothing
+        y intercept
 
     Notes:
     Creates a PNG file of the plot
