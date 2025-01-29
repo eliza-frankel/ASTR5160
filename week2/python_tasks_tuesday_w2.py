@@ -28,15 +28,15 @@ big_extinction = extinction > 0.22  # EAF - creates a mask. True if extinction >
 extinction_RA = RA[big_extinction]  # EAF - puts the values of RA where extinction > 0.22 in an array
 extinction_DEC = DEC[big_extinction]  # EAF - puts the values of declination where extinction > 0.22 in an array
 
-# plt.plot(RA, DEC, 'ko', label="All objects")  # EAF - plots all values of RA and Dec
-# plt.plot(extinction_RA, extinction_DEC, 'r*', label="Extinction > 0.22")  # EAF - only plots RA and Dec for objs with extinction > 0.22
+plt.plot(RA, DEC, 'ko', label="All objects")  # EAF - plots all values of RA and Dec
+plt.plot(extinction_RA, extinction_DEC, 'r*', label="Extinction > 0.22")  # EAF - only plots RA and Dec for objs with extinction > 0.22
 
-# plt.xlabel(r'Right Ascension, $\alpha$')  # EAF - plots the declination  # r allows me to use LaTeX formatting
-# plt.ylabel(r'Declination, $\delta$')  # EAF - plots RA
-# plt.legend()
-# plt.tight_layout()  # EAF - this line removes excess whitespace in the final product
-# plt.savefig("ra_vs_dec_extinction.png")
-# plt.show()
+plt.xlabel(r'Right Ascension, $\alpha$')  # EAF - plots the declination  # r allows me to use LaTeX formatting
+plt.ylabel(r'Declination, $\delta$')  # EAF - plots RA
+plt.legend()
+plt.tight_layout()  # EAF - this line removes excess whitespace in the final product
+plt.savefig("ra_vs_dec_extinction.png")
+plt.show()
 
 
 
