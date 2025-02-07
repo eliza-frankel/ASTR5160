@@ -53,6 +53,7 @@ i1 = 18.82
 
 coord1 = SkyCoord(ra1*u.deg, dec1*u.deg)
 ebv1 = sfd(coord1)  # EAF - accounting for extinction
+A_1 = ebv1 * ugriz  # EAF - gets the extinction for each filter. The extinction is for (u, g, r, i, z)
 
 ra2 = 236.562  # degrees
 dec2 = 2.440  #degrees
@@ -64,17 +65,18 @@ i2 = 18.73
 
 coord2 = SkyCoord(ra2*u.deg, dec2*u.deg)
 ebv2 = sfd(coord2)
+A_2 = ebv2 * ugriz 
 
 # EAF - for the g-r vs r-i plots
 g_r1 = g1 - r1
 r_i1 = r1 - i1
-g_r1_ext = ebv1*g_r1 # EAF - the following color_ext variables are accounting for extinction
-r_i1_ext = ebv1*r_i1
+g_r1_ext = (g1 - A_1[1]) - (r1 - A_1[2]) # EAF - the following color_ext variables are accounting for extinction
+r_i1_ext = (r1 - A_1[2]) - (i1 - A_1[3])
 
 g_r2 = g2 - r2
 r_i2 = r2 - i2
-g_r2_ext = ebv2*g_r1
-r_i2_ext = ebv2*r_i2
+g_r2_ext = (g2 - A_2[1]) - (r2 - A_2[2])
+r_i2_ext = (r2 - A_2[2]) - (i2 - A_2[3])
 
 # Plotting both quasars
 plt.plot(g_r1, r_i1, marker='o', markersize=10, linestyle='None', label='Quasar 1')
@@ -107,8 +109,8 @@ plt.savefig('corrected_color_color.png')
 plt.show()
 plt.close()
 
-# EAF - After correcting for extinction, the colors of the two quasars are significantly closer together.
-#		This makes more sense than the uncorrected version.
+# EAF - After correcting for extinction, the colors of the two quasars are closer together, although not very similar.
+#		I would expect them to be even closer together than they are.
 
 
 ### TASK 2 (and Task 3)
