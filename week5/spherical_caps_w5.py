@@ -43,9 +43,6 @@ def RA_cap_bound(RA):
 
     return np.array([x, y, z, l_cos0])
 
-RA = RA_cap_bound('5h')
-print(RA)
-
 
 ###  TASK 2  ###
 
@@ -73,8 +70,7 @@ def Dec_cap_bound(declination):
 
 	return np.array([x, y, z, l_sin0])
 
-Dec = Dec_cap_bound(36)
-print(Dec)
+
 
 
 ###  TASK 3  ###
@@ -103,10 +99,6 @@ def spherical_cap(coordinates, theta):
 
 	return np.array([x, y, z, l_cos0])
 
-coords = SkyCoord(ra='5h', dec='36d', frame='icrs', unit=(u.hourangle, u.degree))
-sphere = spherical_cap(coords, 1)
-print(sphere)
-
 
 ###  TASK 4  ###
 
@@ -133,5 +125,22 @@ def spherical_cap_output(caps):
 		file.write('\t{} {} {} {}\n'.format(dec[0], dec[1], dec[2], dec[3]))
 		file.write('\t{} {} {} {}\n'.format(spherical[0], spherical[1], spherical[2], spherical[3]))
 
-caps = np.array([RA, Dec, sphere])
-spherical_cap_output(caps)
+
+
+if __name__ == "__main__":
+	# Task 1
+	RA = RA_cap_bound('5h')
+	print(RA)
+
+	# Task 2
+	Dec = Dec_cap_bound(36)
+	print(Dec)
+
+	# Task 3
+	coords = SkyCoord(ra='5h', dec='36d', frame='icrs', unit=(u.hourangle, u.degree))
+	sphere = spherical_cap(coords, 1)
+	print(sphere)
+
+	# Task 4
+	caps = np.array([RA, Dec, sphere])
+	spherical_cap_output(caps)
