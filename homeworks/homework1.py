@@ -1,11 +1,11 @@
 #!/usr/local/Anaconda2024/bin/python3.11
 
 #########################################
-#										#
-#   Homework 1: Survey Observations		#
-#       Author: Eliza Frankel			#
-#		Due: February 28, 2025			#
-#										#
+#										
+#   Homework 1: Survey Observations		
+#       Author: Eliza Frankel			
+#		Due: February 28, 2025			
+#										
 #########################################
 
 import matplotlib.pyplot as plt
@@ -128,7 +128,6 @@ print('\t\t\t\t    (hms.ss°\'") \t\t\t')
 print('-------------------------------------------------------------------------------------------------------------')
 
 for i in range(len(indices)):
-	print('{} \t{}\t{} \t{} \t{}'.format(Time(desired_dates[i]), desired_quasar[i], \
-		round(desired_ra[i], 5), round(desired_dec[i], 5), desired_airmass[i]))
+	print(f'{Time(desired_dates[i])} \t{desired_quasar[i]}\t{desired_ra[i]:5f} \t{desired_dec[i]:5f} \t{desired_airmass[i]:6f}')
 
 print('-------------------------------------------------------------------------------------------------------------')
