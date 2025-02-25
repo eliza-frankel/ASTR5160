@@ -16,11 +16,12 @@ from astropy import units as u
 
 ###  TASK 1  ###
 
-def RA_cap_bound(RA):
+def RA_cap_bound(RA, flip):
     """ Converts RA from hms to cartesian coordinates
     
     Parameters:
     ra (string): the right ascension, specifically in units of hour angles or degrees
+    flip (int): either a value of +1 or -1. When flip=-1, the l_cos0 component turns negative. 
 
     Returns:
     np array consisting of:
@@ -46,18 +47,20 @@ def RA_cap_bound(RA):
     x = float(coord_degrees.x)
     y = float(coord_degrees.y)
     z = float(coord_degrees.z)
-    l_cos0 = 1
+    l_cos0 = 1 * flip
 
     return np.array([x, y, z, l_cos0])
 
 
 ###  TASK 2  ###
 
-def Dec_cap_bound(declination):
+def Dec_cap_bound(declination, flip):
 	""" Converts Declination from hms to cartesian coordinates
     
     Parameters:
     declination (string): the declination, specifically in units of degrees
+    flip (int): either a value of +1 or -1. When flip=-1, the l_sin0 component turns negative. 
+
 
     Returns:
     np array consisting of:
@@ -73,7 +76,7 @@ def Dec_cap_bound(declination):
 	y = float(coord.y)
 	z = float(coord.z)
 	# EAF - convert declination to radians
-	l_sin0 = 1 - np.sin(declination * (np.pi / 180))
+	l_sin0 = flip * (1 - np.sin(declination * (np.pi / 180)))
 
 	return np.array([x, y, z, l_sin0])
 
@@ -82,12 +85,13 @@ def Dec_cap_bound(declination):
 
 ###  TASK 3  ###
 
-def spherical_cap(coordinates, theta):
+def spherical_cap(coordinates, theta, flip):
 	""" Creates the vector 4-array for the spherical cap at (ra, dec)
 
 	Parameters:
 	coordinates (SkyCoord object): the coordinates of the ra and dec
 	theta (float or int): should be in degrees
+    flip (int): either a value of +1 or -1. When flip=-1, the l_cos0 component turns negative. 	
 
 	Returns:
 	np.array consisting of:
@@ -102,7 +106,7 @@ def spherical_cap(coordinates, theta):
 	x = float(coordinates.x)
 	y = float(coordinates.y)
 	z = float(coordinates.z)
-	l_cos0 = 1 - np.cos(theta * (np.pi / 180))
+	l_cos0 = (1 - np.cos(theta * (np.pi / 180))) * flip
 
 	return np.array([x, y, z, l_cos0])
 
@@ -114,33 +118,35 @@ def spherical_cap(coordinates, theta):
 # 		It has been modified from the previous submission to allow for differing numbers
 #		of polygons and caps to be used.
 
-def spherical_cap_output(caps, polygons, outfile_name):
+def spherical_cap_output(caps, polygons, steradians, outfile_name):
 	""" Writes output of RA_cap_bound(), Dec_cap_bound(), and spherical_cap() to a file
 
 	Parameters:
-	caps (list or np.array): list of arrays from the ra, dec, and spherical cap functions
-	polygons (int): the number of polygons in the output file
-	outfile_name (string): a string containing the name you'd like to save your file as
+	- caps (list or np.array): list of a list of arrays from the ra, dec, and spherical cap functions
+		- There is one list for each polygon
+	- polygons (int): the number of polygons in the output file
+	- steradians (list or np.array): the area of a 'lat-lon rectangle' in steradians
+	- outfile_name (string): a string containing the name you'd like to save your file as
 		- Should also include the suffix (ie .txt, .ply, etc.)
 
 	Notes:
 		Creates a text file with the desired results
 		* number of caps must be divisible by number of polygons in this iteration of the function
-			- Currently thinking of something better to do this.
+		'Caps' is a list of lists, so if there are 4 polygons, it will have the structure caps = [[], [], [], []]
 	"""
 
 	with open(outfile_name, 'w') as file:
 		index = 0
 		file.write(f'{polygons} polygons\n')
+		
 		# EAF - creates the number of polygons in the file
 		for i in range(polygons):
-			file.write(f'polygon {i+1} ( {len(caps) // polygons} caps, 1 weight, 0 pixel, 0 str):\n')	
+			file.write(f'polygon {i+1} ( {len(caps[i])} caps, 1 weight, 0 pixel, {steradians[i]} str):\n')	
 			
-			# EAF - For each cap, write the data in this specified format
-			for j in range(len(caps) // polygons):
-				file.write(f'\t{caps[index][0]:19.16f} {caps[index][1]:19.16f} {caps[index][2]:19.16f} {caps[index][3]:19.16f}\n')
-				index += 1
-
+			# # EAF - For each cap, write the data in this specified format
+			for j in range(len(caps[i])):
+				file.write(f'\t{caps[i][j][0]:19.16f} {caps[i][j][1]:19.16f} {caps[i][j][2]:19.16f} {caps[i][j][3]:19.16f}\n')
+				
 
 if __name__ == "__main__":
 	# Task 1
