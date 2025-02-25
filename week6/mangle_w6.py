@@ -33,8 +33,8 @@ theta = 5  # unit - degrees
 cap1_coordinates = SkyCoord(ra=76, dec=36, frame='icrs', unit=(u.degree, u.degree))
 cap2_coordinates = SkyCoord(ra=75, dec=35, frame='icrs', unit=(u.degree, u.degree))
 
-cap1 = spherical_cap(cap1_coordinates, theta)
-cap2 = spherical_cap(cap2_coordinates, theta)
+cap1 = spherical_cap(cap1_coordinates, theta, 1)
+cap2 = spherical_cap(cap2_coordinates, theta, 1)
 
 
 ###  TASK 2  ###
@@ -85,7 +85,9 @@ plt.show()
 
 ###  TASK 4  ###
 
-caps = [-cap1, cap2]
+cap1 = spherical_cap(cap1_coordinates, theta, -1)
+cap2 = spherical_cap(cap2_coordinates, theta, 1)
+caps = [cap1, cap2]
 spherical_cap_output([caps], 1, [0], "intersection_flip1.ply")
 m_flip1 = pymangle.Mangle("intersection_flip1.ply")
 flip1_ra, flip1_dec = m_flip1.genrand(10000)
@@ -106,7 +108,10 @@ plt.show()
 
 ###  TASK 5  ###
 
-caps = [cap1, -cap2]
+cap1 = spherical_cap(cap1_coordinates, theta, 1)
+cap2 = spherical_cap(cap2_coordinates, theta, -1)
+caps = [cap1, cap2]
+
 spherical_cap_output([caps], 1, [0], "intersection_flip2.ply")
 m_flip2 = pymangle.Mangle("intersection_flip2.ply")
 flip2_ra, flip2_dec = m_flip2.genrand(10000)
@@ -128,7 +133,10 @@ plt.show()
 
 ###  TASK 6  ###
 
-caps = [-cap1, -cap2]
+cap1 = spherical_cap(cap1_coordinates, theta, -1)
+cap2 = spherical_cap(cap2_coordinates, theta, -1)
+
+caps = [cap1, cap2]
 spherical_cap_output([caps], 1, [0], "intersection_flip_both.ply")
 m_flip_both = pymangle.Mangle("intersection_flip_both.ply")
 flip_both_ra, flip_both_dec = m_flip_both.genrand(1000000)
