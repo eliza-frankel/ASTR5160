@@ -22,8 +22,8 @@ def find_sweep(path, ra, dec):
 
     Parameters:
     path (str) - path to directory containing sweep fits files.
-    ra (np.array or list) - list of object RAs
-    dec (np.array or list) - list of object Decs
+    ra (np.array or list) - list of object RAs, must be in degrees
+    dec (np.array or list) - list of object Decs, must be in degrees
 
     Returns:
     sweeps (list) - List containing all sweeps these objects would be in.
