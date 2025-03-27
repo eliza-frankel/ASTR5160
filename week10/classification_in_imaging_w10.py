@@ -45,6 +45,8 @@ def is_star(g_z, r_W1):
     else: 
         return True
 
+
+
 if __name__ == "__main__":
 
 	###  TASK 1  ###
