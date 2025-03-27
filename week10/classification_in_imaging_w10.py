@@ -1,12 +1,12 @@
 #!/usr/local/Anaconda2024/bin/python3
 
-################################################
+#################################################
 #						              
 #    In Class Work: Clasification in Imaging
 #		          3.27.2025		  
-#	      Author: Eliza Frankel       
+#	      Author: Eliza Frankel!!!       
 #                                                             
-################################################
+#################################################
 
 from astropy.table import Table, vstack
 from week8.cross_matching_survey_w8 import find_sweep
@@ -171,14 +171,15 @@ if __name__ == "__main__":
 	y = m * x + b
 
 	plt.figure(figsize=(16,9))
-	plt.scatter(star_g_z, star_r_W1, marker='*', c='goldenrod')
-	plt.scatter(quasar_g_z, quasar_r_W1, c='slateblue')
+	plt.scatter(star_g_z, star_r_W1, marker='*', c='goldenrod', label='Stars')
+	plt.scatter(quasar_g_z, quasar_r_W1, c='slateblue', label='Quasars')
 	plt.plot(x, y)
 
 	plt.xlabel("g - z", fontsize=15)
 	plt.ylabel("r - W1", fontsize=15)
 
 	plt.title("Color Cuts", fontsize=20)
+	plt.legend(fontsize=15)
 
 	plt.show()
 
