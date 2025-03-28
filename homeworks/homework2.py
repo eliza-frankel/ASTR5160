@@ -46,8 +46,7 @@ def area(ra_min, ra_max, dec_min, dec_max):
 
 
 def aitoff_plot(ra_min, ra_max, directory, overlap=None):
-
-    """ Finds the area of a field in the sky
+    """ Plots squares of specified RAs and differing Decs on an Aitoff Projection
     Parameters:
     -----------
     ra_min (float) - minimum RA value, in degrees
@@ -108,7 +107,8 @@ def aitoff_plot(ra_min, ra_max, directory, overlap=None):
 
 
 def populate(ra_min, ra_max, dec_min, dec_max):
-    """ Finds the area of a field in the sky
+    """ Randomly generates points in the sky and determines what points overlap
+        with the specified field of sky.
     Parameters:
     -----------
     ra_min (float) - minimum RA value of field, in degrees
@@ -166,6 +166,7 @@ if __name__ == "__main__":
     # print("The fraction of area in the region compared to the area of the sphere is {}."\
     #     .format(round(fraction_area, 6)))
     # print("These are practically the same fraction!")
+
 
 
 
