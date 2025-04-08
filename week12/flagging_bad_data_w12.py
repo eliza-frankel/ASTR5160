@@ -240,6 +240,3 @@ if __name__ == "__main__":
 	print("There are {} objects that are quasars and have r magnitude < 20"\
 		.format(len(qsos)))
 
-	# EAF - I'm not sure what I did incorrectly, but I did not get the 
-	#		correct number of objects.
-
