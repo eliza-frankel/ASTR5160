@@ -343,24 +343,22 @@ def main(RA, DEC, radius, sweep_path):
 
 if __name__ == "__main__":
 	
-	help_message_path = """ 
-	Please input the path to the sweep files you'd like to search.
-	These files will be used to search the desired area of the sky.
-	"""
-
 	help_message_coordinates = """
 	Please input the coordinates (RA, Dec, search radius) all in degrees.
+	The coordinates should be in the format 'RA DEC RADIUS', with no charaters
+	(besides spaces) between them. They should be surrounded by quotes.
 	If nothing is inputted, these values will default to
 	RA = 163, Dec = 50, radius = 3.
+
+	Example input:
+		"python homework3.py -coordinates '155 45 2' "
 	"""
 
 	# EAF - setting up argparse, ensuring there is a help message
 	parser = argparse.ArgumentParser(add_help=True)
-	parser.add_argument("path", help=help_message_path)
 	parser.add_argument("-coordinates", help=help_message_coordinates, default='163 50 3.0')
 
 	args = parser.parse_args()
-	sweep_path = args.path
 	coordinates = args.coordinates
 
 	coordinates = coordinates.split()
@@ -368,6 +366,7 @@ if __name__ == "__main__":
 	center_Dec = float(coordinates[1])
 	radius = float(coordinates[2])
 	
+	sweep_path = '/d/scratch/ASTR5160/data/legacysurvey/dr9/north/sweep/9.0/'
 
 	# EAF - calling main() which runs all above functions
 	time = main(center_RA, center_Dec, radius, sweep_path)
