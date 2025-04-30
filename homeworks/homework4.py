@@ -288,7 +288,7 @@ if __name__ == "__main__":
     # determining_colorcuts(path_to_sweeps, quasaRAs, quasar_Decs)
 
     # # EAF - this is the code to test if splendid_function works
-    data = testing()
+    # data = testing()
 
     ###############################################################################
 
