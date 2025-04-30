@@ -170,13 +170,12 @@ def testing():
     close_stars = super_sweep[star_index]
     close_quasars = super_sweep[quasar_index]
 
+    #EAF - This is the only thing I have changed, in order to create a Table of
+    #       known star and quasar objects.
+
     qso_19_mask = magnitude(close_quasars["FLUX_R"]) < 19
     qso_19 = close_quasars[qso_19_mask]
     # print('num quasars:', len(qso_19))
-
-
-    #EAF - This is the only thing I have changed, in order to create a Table of
-    #       known star and quasar objects.
 
     objects = vstack([close_stars, close_quasars])
 
