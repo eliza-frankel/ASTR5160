@@ -158,6 +158,7 @@ def testing():
     # EAF - stacking all 4 sweep files into one Table and making them SkyCoord Objects
     super_sweep = vstack([Table.read(directory2 + sweep, unit_parse_strict = 'silent') for sweep in sweeps])
 
+
     super_coordinates = SkyCoord(super_sweep["RA"], super_sweep["DEC"], unit=(u.degree, u.degree))
 
     # EAF - taking only the star object ID for objects less than 0.5 arcsec
@@ -168,6 +169,10 @@ def testing():
     #       then getting their fluxes and the MW transmissiopn fluxes for task 2
     close_stars = super_sweep[star_index]
     close_quasars = super_sweep[quasar_index]
+
+    qso_19_mask = magnitude(close_quasars["FLUX_R"]) < 19
+    qso_19 = close_quasars[qso_19_mask]
+    # print('num quasars:', len(qso_19))
 
 
     #EAF - This is the only thing I have changed, in order to create a Table of
@@ -217,6 +222,7 @@ def splendid_function(data_table):
     w2_mag = magnitude(data_table["FLUX_W2"])
     w3_mag = magnitude(data_table["FLUX_W3"])
     w4_mag = magnitude(data_table["FLUX_W4"])
+    type = data_table["TYPE"]
 
     # EAF - all combos of colorcuts 
     cc_cut = [g_mag - r_mag, g_mag - z_mag, g_mag - w2_mag, g_mag - w4_mag,\
@@ -254,7 +260,7 @@ def splendid_function(data_table):
                 and (cc_cut[8][i] < cc_max[8] and cc_cut[8][i] > cc_min[8])\
                 and (cc_cut[9][i] < cc_max[9] and cc_cut[9][i] > cc_min[9])\
                 and (cc_cut[10][i] < cc_max[10] and cc_cut[10][i] > cc_min[10])\
-                ):
+                and (type[i] == 'PSF') and (r_mag[i] < 19)):
 
             object_type_quasar[i] = True
         # else:
