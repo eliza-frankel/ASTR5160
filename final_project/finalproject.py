@@ -11,6 +11,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from astropy.table import Table
+import argparse
 
 import emcee
 from scipy.optimize import minimize
@@ -261,7 +262,8 @@ def plotting(flat_samples, max_params, neg_err, pos_err, parameters,\
         plt.show()
         plt.close()
     else:
-        plt.errorbar(x, y, yerr=yerr, ms=15, fmt='.k', capsize=0)
+        plt.errorbar(x, y, yerr=yerr, fmt='.k', capsize=0)
+        plt.scatter(x, y, c='k')
         plt.plot(x, model, color='k', label = "Best-fitting parameters:\n" + eqn)
         plt.title("The {} best-fit model".format(model_type))
         plt.legend()
@@ -320,6 +322,14 @@ def calculate_percentile(ndim, flat_samples, model_type):
 
 if __name__ == "__main__":
 
+    parser_txt = """This code takes data from a file, 'dataxy.fits' and uses 
+    the python package 'emcee' to find the best fit line. In this program, it 
+    is used to fit both a linear and quadratic line to the data in order to 
+    best optimize the fit."""
+
+    parser = argparse.ArgumentParser(description = parser_txt)
+    args = parser.parse_args()
+
     # EAF - filepath to the experimental data
     file_path = '/d/scratch/ASTR5160/final/dataxy.fits'
 
@@ -343,7 +353,6 @@ if __name__ == "__main__":
     using_emcee((m_max, b_max), x, y, yerr, 'linear', num_steps=5000)
 
 
-
     # EAF - These are the starting values for a2, a1, a0 for quadratic case
     # EAF - I found these by eye.
     
@@ -364,12 +373,12 @@ if __name__ == "__main__":
     contours are very elliptical - if they were uniformly spherical (and 
     small), it would mean that they are not correlated with one another.
     Looking at the best fit equation found using the MCMC method, the value for 
-    a_2 was found to be 0.060 \u00B1 0.026. This value is very 
+    a_2 was found to be ~ 0.060 \u00B1 (0.026, -0.025). This value is very 
     close to zero. If this value were to be zero, the resulting equation would 
     still likely fit the points - however it would be a linear fit rather than 
     quadratic.
     In conclusion, a quadratic model can be used to represent the data, but
-    it is not necessary. A linear model is sufficient with this data.
+    it is not necessary. A linear model is sufficient.
     """
 
     print(which_model)
